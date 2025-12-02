@@ -1,0 +1,24 @@
+{
+  "id": "apple-music",
+  "title": "Apple Music",
+  "description": "A theme inspired by Apple Music for Better Lyrics. Minimal and sleek.",
+  "creators": ["tposejank"],
+  "minVersion": "2.0.5.6",
+  "hasShaders": true,
+  "version": "1.0.0",
+  "tags": ["dark", "minimal", "colorful"],
+  "images": [
+    "16b9_1",
+    "16b9_2",
+    "16b9_3",
+    "16b9_4",
+    "16b9_5",
+    "16b9_6",
+    "16b9_7",
+    "16b9_8",
+    "16b9_9", 
+    "4b3_1.png", 
+    "4b3_2.png", 
+    "4b3_3.png"
+  ]
+}
