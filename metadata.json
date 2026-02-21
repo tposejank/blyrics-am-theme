@@ -6,7 +6,7 @@
   "minVersion": "2.0.5.6",
   "hasShaders": true,
   "version": "1.0.1",
-  "tags": ["dark", "minimal", "colorful"],
+  "tags": ["minimal", "colorful"],
   "images": [
     "16b9_1.png",
     "16b9_2.png",
