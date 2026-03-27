@@ -1,3 +1,5 @@
+/* Apple Music, a marketplace theme by tposejank */
+
 /* Apple Music, a theme for BetterLyrics by tposejank (https://x.com/tposejank) */
 
 @font-face {
@@ -75,8 +77,7 @@ ytmusic-player-page[video-mode][player-ui-state="FULLSCREEN"]>div>div#main-panel
 } */
 
 
-.blyrics--line[data-agent="v2"],
-.blyrics--line[data-agent="v3"] {
+.blyrics--line:not([data-agent="v1"]) {
   justify-content: flex-end;
   text-align: right;
   transform-origin: right center !important;
@@ -258,12 +259,29 @@ ytmusic-player[is-mweb-player-page-modernization-enabled]:not([video-mode]) {
   --ytmusic-player-overlay-gradient: linear-gradient(rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, 0) 100%) !important;
 }
 
+ytmusic-player-page:not([video-mode]) #main-panel.ytmusic-player-page {
+  flex-direction: column !important;
+  justify-content: center;
+  height: auto !important;
+}
+
+
 /* defaults */
 #blyrics-song-info {
   --player-song-info-size-px: 600px;
   max-width: var(--player-song-info-size-px);
   width: var(--player-song-info-size-px);
-  /* text-align: left !important; */
+  padding-top: 2rem;
+}
+
+ytmusic-player-page:not([video-mode]) {
+  display: block !important;
+  text-align: left !important;
+}
+
+ytmusic-player-page:not([is-mweb-modernization-enabled]):not([blyrics-video-mode]):not([video-mode]) #player.ytmusic-player-page {
+  max-height: 400px;
+  margin: 0;
 }
 
 /* defaults */
@@ -372,9 +390,6 @@ ytmusic-player-page:not([is-video-truncation-fix-enabled])[player-fullscreened]:
 
 .autoscroll-resume-button {
   text-align: right;
-  bottom: 4.5rem;
-  right: 0;
-  position: absolute !important;
   border-radius: 6px;
   height: 30px;
   padding: 0 1rem;
@@ -992,6 +1007,7 @@ tp-yt-paper-tabs.ytmusic-player-page {
   right: 2rem;
   bottom: 2rem;
   z-index: 999;
+  backdrop-filter: blur(4px);
 }
 
 tp-yt-paper-tab.iron-selected.ytmusic-player-page {
@@ -1167,7 +1183,8 @@ yt-icon-button.ytmusic-player-bar.previous-button > #button > yt-icon > span > d
 }
 .content-container-wrapper.style-scope.ytmusic-immersive-header-renderer >
 .gradient-container.style-scope.ytmusic-immersive-header-renderer {
-  background: linear-gradient(1turn,var(--ytmusic-background) 50%,rgba(0,0,0,0) 100%);
+  // background: linear-gradient(1turn,var(--ytmusic-background) 50%,rgba(0,0,0,0) 100%);
+  background: none;
 }
 
 ytmusic-fullbleed-thumbnail-renderer[thumbnail-scale=MUSIC_THUMBNAIL_SCALE_ASPECT_FILL] .image.ytmusic-fullbleed-thumbnail-renderer {
@@ -1191,7 +1208,7 @@ ytmusic-fullbleed-thumbnail-renderer[thumbnail-scale=MUSIC_THUMBNAIL_SCALE_ASPEC
 .actions.ytmusic-immersive-header-renderer >
 .buttons.ytmusic-immersive-header-renderer >
 .play-buttons.ytmusic-immersive-header-renderer >
-.radio-button.style-scope.ytmusic-immersive-header-renderer .yt-spec-button-shape-next__button-text-content span {
+.radio-button {
   display: none;
 }
 
@@ -1199,12 +1216,7 @@ ytmusic-fullbleed-thumbnail-renderer[thumbnail-scale=MUSIC_THUMBNAIL_SCALE_ASPEC
 .actions.ytmusic-immersive-header-renderer >
 .buttons.ytmusic-immersive-header-renderer >
 .play-buttons.ytmusic-immersive-header-renderer >
-.play-button.style-scope.ytmusic-immersive-header-renderer .yt-spec-button-shape-next__icon,
-.content-container.ytmusic-immersive-header-renderer >
-.actions.ytmusic-immersive-header-renderer >
-.buttons.ytmusic-immersive-header-renderer >
-.play-buttons.ytmusic-immersive-header-renderer >
-.radio-button.style-scope.ytmusic-immersive-header-renderer .yt-spec-button-shape-next__icon {
+.play-button.style-scope.ytmusic-immersive-header-renderer .yt-spec-button-shape-next__icon {
   margin: 0;
 }
 
@@ -1212,12 +1224,7 @@ ytmusic-fullbleed-thumbnail-renderer[thumbnail-scale=MUSIC_THUMBNAIL_SCALE_ASPEC
 .actions.ytmusic-immersive-header-renderer >
 .buttons.ytmusic-immersive-header-renderer >
 .play-buttons.ytmusic-immersive-header-renderer >
-.play-button.style-scope.ytmusic-immersive-header-renderer,
-.content-container.ytmusic-immersive-header-renderer >
-.actions.ytmusic-immersive-header-renderer >
-.buttons.ytmusic-immersive-header-renderer >
-.play-buttons.ytmusic-immersive-header-renderer >
-.radio-button.style-scope.ytmusic-immersive-header-renderer {
+.play-button.style-scope.ytmusic-immersive-header-renderer {
   min-width: 0;
 }
 
@@ -1226,12 +1233,6 @@ ytmusic-fullbleed-thumbnail-renderer[thumbnail-scale=MUSIC_THUMBNAIL_SCALE_ASPEC
 .buttons.ytmusic-immersive-header-renderer >
 .play-buttons.ytmusic-immersive-header-renderer >
 .play-button.style-scope.ytmusic-immersive-header-renderer >
-yt-button-shape > button.yt-spec-button-shape-next,
-.content-container.ytmusic-immersive-header-renderer >
-.actions.ytmusic-immersive-header-renderer >
-.buttons.ytmusic-immersive-header-renderer >
-.play-buttons.ytmusic-immersive-header-renderer >
-.radio-button.style-scope.ytmusic-immersive-header-renderer >
 yt-button-shape > button.yt-spec-button-shape-next {
   width: 36px;
   height: 36px;
@@ -1243,11 +1244,39 @@ yt-button-shape > button.yt-spec-button-shape-next {
 
 .content-container.ytmusic-immersive-header-renderer >
 .actions.ytmusic-immersive-header-renderer >
+.buttons.ytmusic-immersive-header-renderer >
+.play-buttons.ytmusic-immersive-header-renderer >
+.play-button.style-scope.ytmusic-immersive-header-renderer >
+yt-button-shape > button > div.yt-spec-button-shape-next__icon >
+span > span > div {
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiBmb2N1c2FibGU9ImZhbHNlIiBhcmlhLWhpZGRlbj0idHJ1ZSIgc3R5bGU9InBvaW50ZXItZXZlbnRzOiBub25lOyBkaXNwbGF5OiBpbmhlcml0OyB3aWR0aDogMTAwJTsgaGVpZ2h0OiAxMDAlOyI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTUgNC42MjNWMTkuMzhhMS41IDEuNSAwIDAwMi4yNiAxLjI5TDIyIDEyIDcuMjYgMy4zM0ExLjUgMS41IDAgMDA1IDQuNjIzWiI+PC9wYXRoPjwvc3ZnPg==');
+}
+
+.content-container.ytmusic-immersive-header-renderer >
+.actions.ytmusic-immersive-header-renderer >
+.buttons.ytmusic-immersive-header-renderer >
+.play-buttons.ytmusic-immersive-header-renderer >
+.play-button.style-scope.ytmusic-immersive-header-renderer >
+yt-button-shape > button > div.yt-spec-button-shape-next__icon >
+span > span > div > svg {
+  visibility: hidden;
+}
+
+.content-container.ytmusic-immersive-header-renderer >
+.actions.ytmusic-immersive-header-renderer >
 .buttons.ytmusic-immersive-header-renderer > 
 ytmusic-subscribe-button-renderer.subscribe.style-scope {
   position: absolute;
-  right: 0;
+  right: calc(40px + 1rem);
   margin: 0;
+}
+
+.content-container.ytmusic-immersive-header-renderer >
+.actions.ytmusic-immersive-header-renderer >
+.buttons.ytmusic-immersive-header-renderer > 
+ytmusic-subscribe-button-renderer.subscribe.style-scope >
+yt-button-shape > button {
+  border-radius: 999px;
 }
 
 .content-container.ytmusic-immersive-header-renderer > 
@@ -1261,7 +1290,7 @@ ytmusic-subscribe-button-renderer.subscribe.style-scope {
   position: absolute;
   right: 0;
   text-align: right;
-  bottom: 2.5rem;
+  bottom: 3rem;
 }
 
 ytmusic-immersive-header-renderer:not([is-description-expanded]) .description-container {
@@ -1279,7 +1308,12 @@ h1 > yt-formatted-string {
 
 ytmusic-menu-renderer.style-scope.ytmusic-immersive-header-renderer {
   position: absolute;
-  left: -5rem;
+  right: 0;
+}
+
+ytmusic-menu-renderer.style-scope.ytmusic-immersive-header-renderer >
+yt-button-shape > button {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 /* artist page */
@@ -1473,4 +1507,319 @@ ytmusic-responsive-list-item-renderer[stack-flex-columns]
 yt-button-shape {
   opacity: 1 !important;
   rotate: -90deg;
+}
+
+/* ALBUM VIEW */
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] {
+  flex-direction: column;
+  align-items: center;
+}
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] #primary.ytmusic-two-column-browse-results-renderer {
+  position: relative;
+  width: calc(100% - var(--minimum-page-side-margin));
+  height: auto;
+  max-width: calc(100% - var(--minimum-page-side-margin));
+  margin-right: 0;
+  margin-left: 0;
+}
+
+/* move the shits right */
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer {
+  padding-left: calc(var(--ytmusic-responsive-header-renderer-thumbnail-height) + 3rem);
+  height: var(--ytmusic-responsive-header-renderer-thumbnail-height);
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: start;
+  margin: 0 !important;
+  width: calc(100% - var(--ytmusic-responsive-header-renderer-thumbnail-height) - 3rem) !important;
+  position: relative;
+}
+
+/* move thumbnail */
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer >
+ytmusic-thumbnail-renderer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+}
+
+/* artist thing */
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.strapline.ytmusic-responsive-header-renderer {
+  order: 2;
+  justify-content: left;
+  margin-top: 0;
+  margin-bottom: .75rem;
+}
+
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.strapline.ytmusic-responsive-header-renderer > yt-formatted-string {
+  font-size: var(--lhs-title-font-size, var(--ytmusic-display-1-font-size));
+  text-decoration: underline;
+}
+
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.strapline.ytmusic-responsive-header-renderer > ytmusic-thumbnail-renderer > 
+yt-img-shadow > img {
+  --yt-img-max-height: 32px;
+  --yt-img-border-radius: 999px;
+}
+
+
+/* title thing */
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+h1.ytmusic-responsive-header-renderer {
+  order: 1;
+  margin-bottom: .25rem;
+}
+
+/* Album - 2023 */
+/* 23 songs - 1 hour, 13 minutes*/
+/* description, countdown, buttons */
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.subtitle-wrapper.ytmusic-responsive-header-renderer {
+  order: 3;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.subtitle-wrapper.ytmusic-responsive-header-renderer >
+ytmusic-inline-badge-renderer {
+  margin: 0;
+  order: 1;
+  margin-left: 1rem;
+}
+
+
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.second-subtitle-container.ytmusic-responsive-header-renderer,
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.header-description.ytmusic-responsive-header-renderer,
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.countdown-timer.ytmusic-responsive-header-renderer {
+  order: 3;
+}
+
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.action-buttons.ytmusic-responsive-header-renderer
+{
+  order: 3;
+  margin-top: 3rem;
+}
+
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.header-description.ytmusic-responsive-header-renderer >
+ytmusic-description-shelf-renderer.ytmusic-responsive-header-renderer >
+button > yt-formatted-string {
+  text-align: left !important;
+  max-width: 66%;
+}
+
+@media (max-width: 999px) {
+  ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+  > ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer >
+  ytmusic-thumbnail-renderer {
+    position: static;
+  }
+
+  ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+  > ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer {
+    padding-left: 0 !important;
+    padding-top: calc(40px + 1rem);
+    height: auto !important;
+    width: 100% !important;
+    align-items: center;
+  }
+
+  ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+  > ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+  h1.ytmusic-responsive-header-renderer {
+    margin-top: 1rem;
+  }
+
+  ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+  > ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+  .header-description.ytmusic-responsive-header-renderer >
+  ytmusic-description-shelf-renderer.ytmusic-responsive-header-renderer >
+  button > yt-formatted-string {
+    text-align: justify !important;
+    max-width: 100%;
+    padding-left: 20%;
+    padding-right: 20%;
+  }
+
+  ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+  > ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+  .action-buttons.ytmusic-responsive-header-renderer > 
+  ytmusic-menu-renderer {
+    top: 0;
+  }
+
+  ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+  > ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+  .action-buttons.ytmusic-responsive-header-renderer > 
+  ytmusic-toggle-button-renderer {
+    top: 0;
+  }
+}
+
+/* the play button */
+
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.action-buttons.ytmusic-responsive-header-renderer > 
+ytmusic-play-button-renderer
+{
+  order: 0;
+}
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.action-buttons.ytmusic-responsive-header-renderer > 
+ytmusic-play-button-renderer > .content-wrapper::after
+{
+  content: 'Play';
+  font-size: var(--ytmusic-responsive-font-size);
+}
+
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.action-buttons.ytmusic-responsive-header-renderer > 
+ytmusic-play-button-renderer {
+  width: auto !important;
+  height: auto !important;
+  background: transparent !important;
+  margin: 0;
+}
+
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.action-buttons.ytmusic-responsive-header-renderer > 
+ytmusic-play-button-renderer > .content-wrapper {
+  width: auto !important;
+  height: auto !important;
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+  background: #d60017;
+  border-radius: 10px;
+}
+
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.action-buttons.ytmusic-responsive-header-renderer > 
+ytmusic-play-button-renderer > .content-wrapper > yt-icon.icon {
+  scale: 0.75;
+}
+
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.action-buttons.ytmusic-responsive-header-renderer > 
+ytmusic-play-button-renderer > .content-wrapper > yt-icon.icon >
+span > div > svg {
+  fill: white !important;
+}
+
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.action-buttons.ytmusic-responsive-header-renderer > 
+ytmusic-menu-renderer
+{
+  position: absolute;
+  right: 0;
+}
+
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.action-buttons.ytmusic-responsive-header-renderer > 
+ytmusic-menu-renderer > yt-button-shape.ytmusic-menu-renderer >
+button > div > span > span > div > svg
+{
+  fill: #fa586a;
+  transform: rotate(90deg);
+}
+
+/* add to library button */
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.action-buttons.ytmusic-responsive-header-renderer > 
+ytmusic-toggle-button-renderer
+{
+  position: absolute;
+  right: calc(40px + 1rem);
+  width: auto !important;
+  padding-left: .25rem;
+  padding-right: 1.25rem;
+  border-radius: 20px;
+}
+
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.action-buttons.ytmusic-responsive-header-renderer > 
+ytmusic-toggle-button-renderer > a.ytmusic-toggle-button-renderer {
+  align-items: center;
+}
+
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.action-buttons.ytmusic-responsive-header-renderer > 
+ytmusic-toggle-button-renderer > a.ytmusic-toggle-button-renderer::after
+{
+  content: 'Add';
+  text-transform: none !important;
+  color: #fa586a;
+  font-size: var(--ytmusic-responsive-font-size);
+}
+
+/* nested ass icon classes */
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.action-buttons.ytmusic-responsive-header-renderer > 
+ytmusic-toggle-button-renderer > a.ytmusic-toggle-button-renderer >
+yt-icon-button.ytmusic-toggle-button-renderer > 
+button.yt-icon-button > yt-icon::before {
+  content: '';
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQ9IjIiIGNsYXNzPSJhZGQtdG8tbGlicmFyeV9fZ2x5cGggYWRkLXRvLWxpYnJhcnlfX2dseXBoLWFkZCIgYXJpYS1oaWRkZW49InRydWUiPjxwYXRoIGZpbGw9IiNmYTU4NmEiIGQ9Ik0uNzg0IDUuNzg0aDMuNDMydjMuNDMyYzAgLjQzLjM1NC43ODQuNzg0Ljc4NC40MyAwIC43ODQtLjM1NC43ODQtLjc4NFY1Ljc4NGgzLjQzMmEuNzg0Ljc4NCAwIDEgMCAwLTEuNTY4SDUuNzg0Vi43ODRBLjc4OC43ODggMCAwIDAgNSAwYS43ODguNzg4IDAgMCAwLS43ODQuNzg0djMuNDMySC43ODRhLjc4NC43ODQgMCAxIDAgMCAxLjU2OHoiIGZpbGwtcnVsZT0ibm9uemVybyI+PC9wYXRoPjwvc3ZnPg==');
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  scale: 1.3;
+}
+
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] > #primary.ytmusic-two-column-browse-results-renderer
+> ytmusic-section-list-renderer > #contents.ytmusic-section-list-renderer > ytmusic-responsive-header-renderer > 
+.action-buttons.ytmusic-responsive-header-renderer > 
+ytmusic-toggle-button-renderer > a.ytmusic-toggle-button-renderer >
+yt-icon-button.ytmusic-toggle-button-renderer > 
+button.yt-icon-button > yt-icon > span {
+  visibility: hidden;
+}
+
+/* SONG LIST */
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] #secondary.ytmusic-two-column-browse-results-renderer {
+  width: calc(100% - var(--minimum-page-side-margin));
+  max-width: calc(100% - var(--minimum-page-side-margin));
+  margin-top: 32px;
+}
+ytmusic-two-column-browse-results-renderer.ytmusic-browse-response[page-type="MUSIC_PAGE_TYPE_ALBUM"] #secondary.ytmusic-two-column-browse-results-renderer >
+ytmusic-section-list-renderer.description > #contents.ytmusic-section-list-renderer >
+ytmusic-shelf-renderer {
+  width: 100%;
+  max-width: 100%;
 }
