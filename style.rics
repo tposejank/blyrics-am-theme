@@ -1823,3 +1823,15 @@ ytmusic-shelf-renderer {
   width: 100%;
   max-width: 100%;
 }
+
+// fix bottom sections
+
+ytmusic-carousel-shelf-renderer.ytmusic-section-list-renderer[page-type="MUSIC_PAGE_TYPE_ALBUM"] > .ytmusic-carousel-shelf-renderer > .header-group.ytmusic-carousel-shelf-renderer {
+  max-width: 100% !important;
+}
+
+ytmusic-carousel-shelf-renderer.ytmusic-section-list-renderer[page-type="MUSIC_PAGE_TYPE_ALBUM"] > .ytmusic-carousel-shelf-renderer > ytmusic-carousel#ytmusic-carousel > #items-wrapper > #items {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
