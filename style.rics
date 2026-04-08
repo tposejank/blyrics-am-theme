@@ -25,8 +25,11 @@
   --ytmusic-player-bar-background: black;
   --ytmusic-nav-bar-height: 56px;
   --ytmusic-player-bar-height: 64px !important;
-  --blyrics-target-scroll-pos-ratio: 0.8;
 }
+
+/*
+blyrics-target-scroll-pos-ratio = 0.45;
+*/
 
 * {
   font-family: "MySanFrancisco", "SF Pro", system-ui, "Segoe UI",
@@ -283,11 +286,13 @@ ytmusic-player[is-mweb-player-page-modernization-enabled]:not([video-mode]) {
   --ytmusic-player-overlay-gradient: linear-gradient(rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, 0) 100%) !important;
 }
 
-// ytmusic-player-page:not([video-mode]) #main-panel.ytmusic-player-page {
-//   flex-direction: column !important;
-//   justify-content: center;
-//   height: auto !important;
-// }
+// TODO: ONLY WORKS ON YTM PREMIUM
+ytmusic-player-page:not([video-mode]) #main-panel.ytmusic-player-page {
+  flex-direction: column !important;
+  align-items: center;
+  justify-content: center;
+  height: auto !important;
+}
 
 
 /* defaults */
@@ -312,7 +317,9 @@ ytmusic-player-page:not([is-mweb-modernization-enabled]):not([blyrics-video-mode
 ytmusic-player-page:not([is-video-truncation-fix-enabled])[player-fullscreened]:not([blyrics-dfs]):not([video-mode]) #player.ytmusic-player-page {
   --player-square-size-px: 600px;
   max-height: var(--player-square-size-px);
-  max-width: var(--player-square-size-px);
+  /* fix by boidu */
+  /* "i also found another issue where better-lyrics' css was overriding yours so the song image had grey bg visible on top and bottom" */
+  max-width: var(--player-square-size-px) !important;
   height: var(--player-square-size-px);
   width: var(--player-square-size-px);
   border-radius: 12px;
@@ -1950,7 +1957,7 @@ ytmusic-player-page:not([is-mweb-modernization-enabled]):not([player-ui-state="F
 }
 
 #tab-renderer[page-type="MUSIC_PAGE_TYPE_TRACK_LYRICS"] {
-  mask-image: linear-gradient(180deg, transparent, #000 50px, #000 40%, transparent) !important;
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 50px, #000 40%, transparent) !important;
+  mask-image: linear-gradient(180deg, transparent, #000 50px, #000 60%, transparent) !important;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 50px, #000 60%, transparent) !important;
   scrollbar-color: transparent transparent;
 }
