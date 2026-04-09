@@ -288,12 +288,82 @@ ytmusic-player[is-mweb-player-page-modernization-enabled]:not([video-mode]) {
 
 // TODO: ONLY WORKS ON YTM PREMIUM
 ytmusic-player-page:not([video-mode]) #main-panel.ytmusic-player-page {
-  flex-direction: column !important;
+  // flex-direction: column !important;
   align-items: center;
   justify-content: center;
   height: auto !important;
 }
 
+// av switcher
+ytmusic-player-page .av.ytmusic-player-page {
+  position: absolute;
+  bottom: 2rem;
+  right: calc(calc(30px * 3) + 4rem);
+  z-index: 999;
+  padding: 0;
+}
+
+ytmusic-av-toggle[toggle-disabled] button.ytmusic-av-toggle::after {
+  opacity: 0.5;
+}
+
+.av-toggle.ytmusic-av-toggle {
+  height: 30px;
+  border-radius: 8px !important;
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(4px);
+}
+
+.song-button.ytmusic-av-toggle, .video-button.ytmusic-av-toggle {
+  height: 30px;
+  font-size: 0;
+  background-color: transparent;
+  width: 30px;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  border-radius: 8px !important;
+}
+
+.song-button.ytmusic-av-toggle::after {
+  content: '';
+  position: absolute;
+  left: 1px;
+  top: 1px;
+  width: 24px;
+  height: 24px;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTkuNzMyIDE5LjI0MWMxLjA3NyAwIDIuNjg4LS43OSAyLjY4OC0yLjkyMlY5LjYxN2MwLS4zODguMDc0LS40NjkuNDE4LS41NDJsMy4zNDctLjczMmEuNDguNDggMCAwIDAgLjQwMy0uNDg0VjUuMTA1YzAtLjM4OC0uMzE1LS42MzctLjY4OS0uNTYzbC0zLjc2NC44MmMtLjQ3LjEwMi0uNzI1LjM1OS0uNzI1Ljc2OWwuMDE0IDguMTQ0Yy4wMzcuMzYtLjEzMi41OTQtLjQ1NC42NmwtMS4xNjQuMjQxYy0xLjQ2NS4zMDgtMi4xNTQgMS4wNTUtMi4xNTQgMi4xNiAwIDEuMTIyLjg2NCAxLjkwNSAyLjA4IDEuOTA1eiIgZmlsbD0iI2ZmZiI+PC9wYXRoPjwvc3ZnPg==');
+}
+
+.video-button.ytmusic-av-toggle::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  scale: 1.2;
+  // from spotify!
+  width: 16px;
+  height: 16px;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTEuNzUgMi41YS4yNS4yNSAwIDAgMC0uMjUuMjV2MTAuNWMwIC4xMzguMTEyLjI1LjI1LjI1aDEyLjVhLjI1LjI1IDAgMCAwIC4yNS0uMjVWMi43NWEuMjUuMjUgMCAwIDAtLjI1LS4yNXpNMCAyLjc1QzAgMS43ODQuNzg0IDEgMS43NSAxaDEyLjVjLjk2NyAwIDEuNzUuNzg0IDEuNzUgMS43NXYxMC41QTEuNzUgMS43NSAwIDAgMSAxNC4yNSAxNUgxLjc1QTEuNzUgMS43NSAwIDAgMSAwIDEzLjI1eiI+PC9wYXRoPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Im02IDUgNS4xOTYgM0w2IDExeiI+PC9wYXRoPjwvc3ZnPg==');
+}
+
+ytmusic-av-toggle[playback-mode=ATV_PREFERRED] .song-button.ytmusic-av-toggle {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+ytmusic-av-toggle[playback-mode=OMV_PREFERRED] .video-button.ytmusic-av-toggle {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+//
+
+
+@media (min-width: 936px) {
+    #main-panel.ytmusic-player-page {
+        margin: 0;
+        /* margin: 0 0 var(--ytmusic-player-page-vertical-padding); */
+    }
+}
 
 /* defaults */
 #blyrics-song-info {
@@ -1937,6 +2007,15 @@ ytmusic-player-page:not([is-mweb-modernization-enabled]):not([has-av-switcher]) 
 
 ytmusic-player-page:not([is-mweb-modernization-enabled]):not([player-ui-state="FULLSCREEN"]) .content.ytmusic-player-page {
   padding-right: 0;
+}
+
+// case 1, not in fullscreen
+ytmusic-player-page:not([is-mweb-modernization-enabled]):not([player-ui-state="FULLSCREEN"]) > .content.ytmusic-player-page {
+  gap: var(--ytmusic-player-page-horizontal-padding);
+}
+// case 2, fullscreened video 
+ytmusic-player-page:not([is-mweb-modernization-enabled])[video-mode] > .content.ytmusic-player-page
+{
   gap: var(--ytmusic-player-page-horizontal-padding);
 }
 
@@ -1960,4 +2039,21 @@ ytmusic-player-page:not([is-mweb-modernization-enabled]):not([player-ui-state="F
   mask-image: linear-gradient(180deg, transparent, #000 50px, #000 60%, transparent) !important;
   -webkit-mask-image: linear-gradient(180deg, transparent, #000 50px, #000 60%, transparent) !important;
   scrollbar-color: transparent transparent;
+}
+
+@media (min-width: 936px) {
+    ytmusic-player-page:not([is-mweb-modernization-enabled])[player-fullscreened]:not([blyrics-dfs]) #side-panel {
+        transform: translateY(0px);
+    }
+}
+
+@media (max-width: 935px) {
+  .side-panel.ytmusic-player-page {
+    padding: 0 !important;
+  }
+
+  ytmusic-player-page:not([is-mweb-modernization-enabled]) .content.ytmusic-player-page {
+    padding-left: 0 !important;
+    padding-top: 2rem !important;
+  }
 }
