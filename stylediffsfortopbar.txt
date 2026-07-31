@@ -1,0 +1,93 @@
+@@ -256,12 +273,9 @@ ytmusic-player-page[video-mode][player-ui-state="FULLSCREEN"]>div>div#main-panel
+    --blyrics-font-size: 5.2rem;
+    /* This will override the previous value for this media query */
+  }
+}
+
+@media (min-width: 1900px) {
+  :root {
+    --blyrics-font-size: 6.0rem;
+    /* This will override the previous value for this media query */
+  .blyrics-background-lyric {
+    font-size: 0.65em;
+  }
+}
+
+
+
+@@ -616,25 +630,19 @@ ytmusic-search-box[is-bauhaus-sidenav-enabled] .search-box.ytmusic-search-box {
+ytmusic-search-box[is-bauhaus-sidenav-enabled]:not([opened]):not([has-query]) .search-box.ytmusic-search-box {
+  border-radius: 6px !important;
+  height: var(--ytmusic-search-box-height);
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* search box opened */
+ytmusic-search-box[is-bauhaus-sidenav-enabled][opened] .search-box.ytmusic-search-box {
+  border-radius: 6px 6px 0 0 !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  // background: var(--ytmusic-search-background);
+  background: var(--ytmusic-search-background);
+}
+
+/* suggestion list - bottom radius and adjusting position and padding */
+ytmusic-search-box[is-bauhaus-sidenav-enabled] #suggestion-list.ytmusic-search-box {
+  padding: 0;
+  border-radius: 8px;
+  top: 39px;
+}
+
+ytmusic-search-box[is-bauhaus-sidenav-enabled]:not([has-query]) #suggestion-list.ytmusic-search-box {
+  border: none;
+  border-radius: 0 0 6px 6px;
+  top: 36px;
+}
+
+ytmusic-search-suggestion {
+
+
+@@ -1942,118 +1950,3 @@ ytmusic-carousel-shelf-renderer.ytmusic-section-list-renderer[page-type="MUSIC_P
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+/* playerbar, player bar fuckery */
+ytmusic-app-layout>[slot=player-bar], #player-bar-background.ytmusic-app-layout {
+  top: 0;
+  padding-left: var(--ytmusic-guide-width);
+  width: calc(100vw - var(--ytmusic-scrollbar-width) - var(--ytmusic-guide-width));
+}
+
+ytmusic-app-layout>[slot=nav-bar], #nav-bar-background.ytmusic-app-layout { 
+  position: fixed;
+  width: var(--ytmusic-guide-width);
+  top: 0;
+  height: calc(var(--ytmusic-nav-bar-height) * 2);
+  display: block;  
+}
+
+ytmusic-nav-bar[is-bauhaus-sidenav-enabled] .left-content.ytmusic-nav-bar {
+  height: var(--ytmusic-nav-bar-height);
+}
+
+.right-content.ytmusic-nav-bar {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.center-content.ytmusic-nav-bar {
+  padding-right: 2.25rem !important;
+  padding-left: 2.25rem !important;
+  padding-top: 3rem;
+  width: 100% !important;
+  position: static !important;
+}
+
+ytmusic-app[is-bauhaus-sidenav-enabled] #guide-spacer.ytmusic-app {
+  margin-top: calc(var(--ytmusic-nav-bar-height) * 2);
+}
+
+#sliderContainer.tp-yt-paper-slider {
+  margin-left: calc(var(--ytmusic-guide-width) + var(--paper-slider-container-margin,calc(15px + var(--calculated-paper-slider-height)/2)));
+  width: calc(100% - var(--ytmusic-guide-width));
