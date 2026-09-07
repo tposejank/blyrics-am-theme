@@ -1109,6 +1109,10 @@ tp-yt-paper-tab.ytmusic-player-page::after {
   left: 0;
 }
 
+tp-yt-paper-tab[aria-disabled=true].ytmusic-player-page::after {
+  opacity: 0.5;
+}
+
 // playlist
 tp-yt-paper-tab:nth-child(2).ytmusic-player-page::after {
   width: 18px;
@@ -1240,7 +1244,7 @@ ytmusic-av-toggle[playback-mode=OMV_PREFERRED] .video-button.ytmusic-av-toggle {
   background: rgba(255, 255, 255, 0.15);
 }
 
-.blyrics-dock[data-position=bottom-right] {
+ytmusic-player-page:not([player-fullscreened]) .blyrics-dock[data-position=bottom-right] {
   top: calc(100% - 85px);
 }
 
