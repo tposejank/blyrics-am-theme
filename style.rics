@@ -1186,6 +1186,10 @@ ytmusic-av-toggle[toggle-disabled] button.ytmusic-av-toggle::after {
   backdrop-filter: blur(4px);
 }
 
+ytmusic-player-page:not([blyrics-dfs])[blyrics-video-mode] #av-id {
+  padding: 0;
+}
+
 .song-button.ytmusic-av-toggle, .video-button.ytmusic-av-toggle {
   height: 30px;
   font-size: 0;
@@ -1236,10 +1240,63 @@ ytmusic-av-toggle[playback-mode=OMV_PREFERRED] .video-button.ytmusic-av-toggle {
   background: rgba(255, 255, 255, 0.15);
 }
 
-.blyrics-dock[data-position=bottom-right],
+.blyrics-dock[data-position=bottom-right] {
+  top: calc(100% - 85px);
+}
+
+.blyrics-dock[data-position=bottom-center] {
+  --dock-tx: -100%;
+  // tab controls + av switch + separation
+  left: auto;
+  right: calc(calc(30px * 4) + calc(30px * 2) + 10px);
+}
+
+.blyrics-dock[data-position=bottom-center] .blyrics-dock__inner {
+  position: absolute;
+}
+
+.blyrics-dock[data-position=bottom-left] .blyrics-dock__inner {
+  background: transparent;
+  display: block;
+  padding-bottom: 30px;
+  position: absolute;
+  transform: translateX(var(--dock-tx,0)) scale(1) translateY(-35px);
+  transition: transform .32s cubic-bezier(.4,0,.2,1),opacity .32s cubic-bezier(.4,0,.2,1),-webkit-filter .32s cubic-bezier(.4,0,.2,1),filter .32s cubic-bezier(.4,0,.2,1) border-bottom-left-radius .5s cubic-bezier(.4,0,.2,1) .5s, border-bottom-right-radius .5s cubic-bezier(.4,0,.2,1) .5s;
+}
+.blyrics-dock[data-position=bottom-left] .blyrics-dock__inner .blyrics-dock__controls {
+  background: rgba(255, 255, 255, 0.15);
+  transition: border-radius .32s cubic-bezier(.4,0,.2,1);
+  border-radius: 8px 8px;
+}
+.blyrics-dock[data-position=bottom-left] .blyrics-dock__inner::after {
+  width: 30px;
+  height: 35px;
+  position: fixed;
+  content: '';
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  transition: height .32s cubic-bezier(.4,0,.2,1);
+  // background: rgba(255, 255, 255, 0.15);
+}
+.blyrics-dock[data-position=bottom-left] .blyrics-dock__inner:not(.blyrics-dock__inner--expanded) {
+  transform: translateX(var(--dock-tx,0)) scale(1) translateY(0px);
+}
+.blyrics-dock[data-position=bottom-left] .blyrics-dock__inner:not(.blyrics-dock__inner--expanded)::after {
+  height: 0px;
+}
+.blyrics-dock[data-position=bottom-left] .blyrics-dock__inner.blyrics-dock__inner--expanded .blyrics-dock__controls {
+  border-radius: 8px 8px 8px 8px;
+}
+
 .blyrics-dock[data-position=bottom-center],
 .blyrics-dock[data-position=bottom-left] {
-  top: calc(100% - 85px);
+  top: calc(100% - 50px);
+}
+
+ytmusic-player-page[player-ui-state=FULLSCREEN] .blyrics-dock {
+  --dock-tx: -100% !important;
+  left: 100% !important;
+  right: auto !important;
 }
 
 .blyrics-dock__offset {
