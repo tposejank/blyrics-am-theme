@@ -320,79 +320,6 @@ ytmusic-player[is-mweb-player-page-modernization-enabled]:not([video-mode]) {
   --ytmusic-player-overlay-gradient: linear-gradient(rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, 0) 100%) !important;
 }
 
-// TODO: ONLY WORKS ON YTM PREMIUM
-ytmusic-player-page:not([video-mode]) #main-panel.ytmusic-player-page {
-  // flex-direction: column !important;
-  align-items: center;
-  justify-content: center;
-  height: auto !important;
-}
-
-// av switcher
-ytmusic-player-page .av.ytmusic-player-page {
-  position: absolute;
-  bottom: 2rem;
-  right: calc(calc(30px * 4) + 2rem + var(--ytmusic-player-page-horizontal-padding));
-  z-index: 999;
-  padding: 0;
-}
-
-ytmusic-player-page:not([has-av-switcher]) .av.ytmusic-player-page {
-  display: block;
-}
-
-ytmusic-av-toggle[toggle-disabled] button.ytmusic-av-toggle::after {
-  opacity: 0.5;
-}
-
-.av-toggle.ytmusic-av-toggle {
-  height: 30px;
-  border-radius: 8px !important;
-  background-color: rgba(255, 255, 255, 0.15) !important;
-  backdrop-filter: blur(4px);
-}
-
-.song-button.ytmusic-av-toggle, .video-button.ytmusic-av-toggle {
-  height: 30px;
-  font-size: 0;
-  background-color: transparent;
-  width: 30px;
-  padding: 0;
-  margin: 0;
-  position: relative;
-  border-radius: 8px !important;
-}
-
-.song-button.ytmusic-av-toggle::after {
-  content: '';
-  position: absolute;
-  left: 1px;
-  top: 1px;
-  width: 24px;
-  height: 24px;
-  background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTkuNzMyIDE5LjI0MWMxLjA3NyAwIDIuNjg4LS43OSAyLjY4OC0yLjkyMlY5LjYxN2MwLS4zODguMDc0LS40NjkuNDE4LS41NDJsMy4zNDctLjczMmEuNDguNDggMCAwIDAgLjQwMy0uNDg0VjUuMTA1YzAtLjM4OC0uMzE1LS42MzctLjY4OS0uNTYzbC0zLjc2NC44MmMtLjQ3LjEwMi0uNzI1LjM1OS0uNzI1Ljc2OWwuMDE0IDguMTQ0Yy4wMzcuMzYtLjEzMi41OTQtLjQ1NC42NmwtMS4xNjQuMjQxYy0xLjQ2NS4zMDgtMi4xNTQgMS4wNTUtMi4xNTQgMi4xNiAwIDEuMTIyLjg2NCAxLjkwNSAyLjA4IDEuOTA1eiIgZmlsbD0iI2ZmZiI+PC9wYXRoPjwvc3ZnPg==');
-}
-
-.video-button.ytmusic-av-toggle::after {
-  content: '';
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  scale: 1.2;
-  // from spotify!
-  width: 16px;
-  height: 16px;
-  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTEuNzUgMi41YS4yNS4yNSAwIDAgMC0uMjUuMjV2MTAuNWMwIC4xMzguMTEyLjI1LjI1LjI1aDEyLjVhLjI1LjI1IDAgMCAwIC4yNS0uMjVWMi43NWEuMjUuMjUgMCAwIDAtLjI1LS4yNXpNMCAyLjc1QzAgMS43ODQuNzg0IDEgMS43NSAxaDEyLjVjLjk2NyAwIDEuNzUuNzg0IDEuNzUgMS43NXYxMC41QTEuNzUgMS43NSAwIDAgMSAxNC4yNSAxNUgxLjc1QTEuNzUgMS43NSAwIDAgMSAwIDEzLjI1eiI+PC9wYXRoPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Im02IDUgNS4xOTYgM0w2IDExeiI+PC9wYXRoPjwvc3ZnPg==');
-}
-
-ytmusic-av-toggle[playback-mode=ATV_PREFERRED] .song-button.ytmusic-av-toggle {
-  background-color: rgba(255, 255, 255, 0.15);
-}
-
-ytmusic-av-toggle[playback-mode=OMV_PREFERRED] .video-button.ytmusic-av-toggle {
-  background-color: rgba(255, 255, 255, 0.15);
-}
-
 //
 
 
@@ -1143,7 +1070,7 @@ tp-yt-paper-tabs.ytmusic-player-page {
   border-radius: 8px;
   height: 30px;
   position: fixed !important;
-  right: 5.65rem;
+  right: var(--ytmusic-player-page-horizontal-padding);
   bottom: 2rem;
   z-index: 999;
   backdrop-filter: blur(4px);
@@ -1172,9 +1099,7 @@ tp-yt-paper-tab.ytmusic-player-page {
 
 tp-yt-paper-tab.ytmusic-player-page > .tab-content {
   display: none;
-}
-
-// 
+} 
 
 tp-yt-paper-tab.ytmusic-player-page::after {
   content: '';
@@ -1228,18 +1153,164 @@ ytmusic-player-page tp-yt-paper-tabs .tp-yt-paper-tabs[style-target=content] {
   text-transform: none;
 }
 
+// AV SWITCHER
+// TODO: ONLY WORKS ON YTM PREMIUM
+ytmusic-player-page:not([video-mode]) #main-panel.ytmusic-player-page {
+  // flex-direction: column !important;
+  align-items: center;
+  justify-content: center;
+  height: auto !important;
+}
+
+// av switcher
+ytmusic-player-page .av.ytmusic-player-page {
+  position: absolute;
+  bottom: 2rem;
+  right: calc(calc(30px * 4) + 5px + var(--ytmusic-player-page-horizontal-padding));
+  z-index: 999;
+  padding: 0;
+}
+
+ytmusic-player-page:not([has-av-switcher]) .av.ytmusic-player-page {
+  display: block;
+}
+
+ytmusic-av-toggle[toggle-disabled] button.ytmusic-av-toggle::after {
+  opacity: 0.5;
+}
+
+.av-toggle.ytmusic-av-toggle {
+  height: 30px;
+  border-radius: 8px !important;
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(4px);
+}
+
+.song-button.ytmusic-av-toggle, .video-button.ytmusic-av-toggle {
+  height: 30px;
+  font-size: 0;
+  background-color: transparent;
+  width: 30px;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  border-radius: 8px !important;
+}
+
+.song-button.ytmusic-av-toggle::after {
+  content: '';
+  position: absolute;
+  left: 1px;
+  top: 1px;
+  width: 24px;
+  height: 24px;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTkuNzMyIDE5LjI0MWMxLjA3NyAwIDIuNjg4LS43OSAyLjY4OC0yLjkyMlY5LjYxN2MwLS4zODguMDc0LS40NjkuNDE4LS41NDJsMy4zNDctLjczMmEuNDguNDggMCAwIDAgLjQwMy0uNDg0VjUuMTA1YzAtLjM4OC0uMzE1LS42MzctLjY4OS0uNTYzbC0zLjc2NC44MmMtLjQ3LjEwMi0uNzI1LjM1OS0uNzI1Ljc2OWwuMDE0IDguMTQ0Yy4wMzcuMzYtLjEzMi41OTQtLjQ1NC42NmwtMS4xNjQuMjQxYy0xLjQ2NS4zMDgtMi4xNTQgMS4wNTUtMi4xNTQgMi4xNiAwIDEuMTIyLjg2NCAxLjkwNSAyLjA4IDEuOTA1eiIgZmlsbD0iI2ZmZiI+PC9wYXRoPjwvc3ZnPg==');
+}
+
+.video-button.ytmusic-av-toggle::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  scale: 1.2;
+  // from spotify!
+  width: 16px;
+  height: 16px;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTEuNzUgMi41YS4yNS4yNSAwIDAgMC0uMjUuMjV2MTAuNWMwIC4xMzguMTEyLjI1LjI1LjI1aDEyLjVhLjI1LjI1IDAgMCAwIC4yNS0uMjVWMi43NWEuMjUuMjUgMCAwIDAtLjI1LS4yNXpNMCAyLjc1QzAgMS43ODQuNzg0IDEgMS43NSAxaDEyLjVjLjk2NyAwIDEuNzUuNzg0IDEuNzUgMS43NXYxMC41QTEuNzUgMS43NSAwIDAgMSAxNC4yNSAxNUgxLjc1QTEuNzUgMS43NSAwIDAgMSAwIDEzLjI1eiI+PC9wYXRoPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Im02IDUgNS4xOTYgM0w2IDExeiI+PC9wYXRoPjwvc3ZnPg==');
+}
+
+ytmusic-av-toggle[playback-mode=ATV_PREFERRED] .song-button.ytmusic-av-toggle {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+ytmusic-av-toggle[playback-mode=OMV_PREFERRED] .video-button.ytmusic-av-toggle {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
 // BLYRICS DOCK
 .blyrics-dock__inner {
-  padding: 2px;
+  padding: 0;
   box-shadow: none;
   backdrop-filter: blur(4px);
   border-radius: 8px;
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .blyrics-dock[data-position=bottom-right],
 .blyrics-dock[data-position=bottom-center],
 .blyrics-dock[data-position=bottom-left] {
-  top: calc(100% - 90px);
+  top: calc(100% - 85px);
+}
+
+.blyrics-dock__offset {
+  order: -1;
+}
+
+.blyrics-dock__source {
+  min-width: 30px;
+  justify-content: center;
+}
+
+.blyrics-dock__source-trigger {
+  justify-content: center;
+}
+
+.blyrics-dock__controls,
+.blyrics-dock__offset,
+.blyrics-dock__source {
+  gap: 0;
+}
+
+.blyrics-dock__divider {
+  display: none;
+}
+
+.blyrics-dock__offset-icon {
+  order: 2;
+}
+.blyrics-dock__offset-icon svg {
+  scale: 1.3;
+}
+
+.blyrics-dock__offset-value {
+  padding: 0 4px;
+}
+.blyrics-dock__inner:not(.blyrics-dock__inner--expanded) .blyrics-dock__offset-value {
+  display: none;
+}
+
+.blyrics-dock__inner .blyrics-dock__controls, 
+.blyrics-dock__inner--expanded .blyrics-dock__controls {
+  opacity: 1;
+}
+
+.blyrics-dock__control, 
+.blyrics-dock__cycle, 
+.blyrics-dock__offset-step, 
+.blyrics-dock__offset-row-step,
+.blyrics-dock__offset-icon {
+  border-radius: 8px;
+  height: 30px;
+  width: 30px;
+}
+
+// source thingy
+.blyrics-dock__source-icon {
+  transition: scale 0.5s ease;
+  scale: 1;
+}
+.blyrics-dock__inner:not(.blyrics-dock__inner--expanded) .blyrics-dock__source-icon {
+  scale: 1.4;
+}
+
+// translation
+.blyrics-dock__control svg {
+  scale: 1.2;
+}
+
+// pip
+.blyrics-dock__control[data-blyrics-picture-in-picture-toggle=true] svg {
+  scale: 1.2;
 }
 
 /* icons */
