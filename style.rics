@@ -27,11 +27,20 @@
   --ytmusic-player-bar-background: black;
   --ytmusic-nav-bar-height: 56px;
   --ytmusic-player-bar-height: 64px !important;
-  --blyrics-animate-word-wobble: 0;
+  // --blyrics-animate-word-wobble: 0;
+  
+  // --blyrics-wobble-duration: 4s;
+  --blyrics-word-wobble-transform-from: translateY(3px) scaleX(1) !important;
+  --blyrics-word-wobble-peak-offset: 0;
+  --blyrics-word-wobble-settle-offset: 1;
+  --blyrics-word-wobble-transform-peak: translateY(3px) scaleX(1) !important;
+  --blyrics-word-wobble-transform-settle: translateY(0px) scaleX(1) !important;
+  --blyrics-word-wobble-transform-to: translateY(0px) scaleX(1) !important;
 }
 
 /*
 blyrics-target-scroll-pos-ratio = 0.45;
+blyrics-letter-wave = true;
 */
 
 * {
@@ -140,6 +149,7 @@ ytmusic-player-page[video-mode][player-ui-state="FULLSCREEN"]>div>div#main-panel
 
 .blyrics-word-group {
   white-space: normal;
+  --blyrics-wobble-duration: 4s !important;
 }
 
 /* .blyrics-container > .blyrics--line.blyrics--pre-animating {
@@ -156,13 +166,15 @@ ytmusic-player-page[video-mode][player-ui-state="FULLSCREEN"]>div>div#main-panel
   /* moves it down for the AM scrolling effect */
   transform: translateY(3px);
 
+  --blyrics-wobble-duration: var(--blyrics-duration) !important;
+
   /* sets transform transition */
   /* makes it move up faster and earlier than when it finishes scrolling */
-  transition: transform calc(var(--blyrics-duration, 0ms) + 200ms) calc(var(--blyrics-anim-delay, 0.05s) - 0.05s) !important;
+  // transition: transform calc(var(--blyrics-duration, 0ms) + 200ms) !important;
 }
 
 .blyrics--word.blyrics--animating {
-  transform: translateY(0) !important;
+  // transform: translateY(0) !important;
   /* moves it back up when reading */
   animation: none;
   /* disables the bounce transition */
@@ -221,13 +233,13 @@ ytmusic-player-page[video-mode][player-ui-state="FULLSCREEN"]>div>div#main-panel
 .blyrics-container[data-sync="synced"]>.blyrics--line.blyrics--active.blyrics--animating .blyrics--word {
   color: var(--blyrics-lyric-active-color) !important;
 }
-.blyrics-container[data-sync="synced"] .blyrics--word::after,
+.blyrics-container[data-sync="synced"] .blyrics--word,
 .blyrics-container[data-sync="synced"] .blyrics-word-highlight
 {
   --blyrics-glow-color: color(display-p3 1 1 1 / 0.0001) !important;
 }
 
-.blyrics--word::after {
+.blyrics--word {
   /* disable the glow (set the color to like 0% opacity because if its none it just explodes) */
   --blyrics-glow-color: color(display-p3 1 1 1 / 0.0001);
 }
@@ -315,9 +327,13 @@ ytmusic-player-page:not([video-mode]) #main-panel.ytmusic-player-page {
 ytmusic-player-page .av.ytmusic-player-page {
   position: absolute;
   bottom: 2rem;
-  right: calc(calc(30px * 3) + 4rem);
+  right: calc(calc(30px * 4) + 2rem + var(--ytmusic-player-page-horizontal-padding));
   z-index: 999;
   padding: 0;
+}
+
+ytmusic-player-page:not([has-av-switcher]) .av.ytmusic-player-page {
+  display: block;
 }
 
 ytmusic-av-toggle[toggle-disabled] button.ytmusic-av-toggle::after {
@@ -484,7 +500,7 @@ ytmusic-player-page:not([is-video-truncation-fix-enabled])[player-fullscreened]:
 }
 
 /* the long word glow from AM */
-.blyrics--word[data-long-word]::after {
+.blyrics--word[data-long-word] {
   --blyrics-glow-color: color(display-p3 1 1 1 / 1);
 }
 
@@ -1122,10 +1138,11 @@ tp-yt-paper-tabs.ytmusic-player-page {
   border-radius: 8px;
   height: 30px;
   position: absolute;
-  right: 2rem;
+  right: 0rem;
   bottom: 2rem;
   z-index: 999;
   backdrop-filter: blur(4px);
+  min-width: auto !important;
 }
 
 tp-yt-paper-tab.iron-selected.ytmusic-player-page {
@@ -1162,6 +1179,7 @@ tp-yt-paper-tab.ytmusic-player-page::after {
   left: 0;
 }
 
+// playlist
 tp-yt-paper-tab:nth-child(2).ytmusic-player-page::after {
   width: 18px;
   height: 18px;
@@ -1169,6 +1187,7 @@ tp-yt-paper-tab:nth-child(2).ytmusic-player-page::after {
   background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDE4IDE4Ij48cGF0aCBkPSJNMi42MzQgNS41MzdhLjkwNi45MDYgMCAxIDAgMC0xLjgxMy45MDYuOTA2IDAgMSAwIDAgMS44MTN6bTMuMTkyLS4zMjVoOS44NjVhLjU3Ni41NzYgMCAwIDAgLjU4NS0uNTc4LjU3OC41NzggMCAwIDAtLjU4NS0uNTg1SDUuODI2YS41NzQuNTc0IDAgMCAwLS41ODUuNTg1YzAgLjMyNS4yNTMuNTc4LjU4NS41Nzh6TTIuNjM0IDkuOTA2Yy41MDYgMCAuOTEtLjQwNC45MS0uOTFhLjkwNi45MDYgMCAwIDAtLjkxLS45MS45MDYuOTA2IDAgMCAwLS45MS45MWMwIC41MDYuNDA1LjkxLjkxLjkxem0zLjE5Mi0uMzI1aDkuODY1YS41ODIuNTgyIDAgMSAwIDAtMS4xNjJINS44MjZhLjU3Mi41NzIgMCAwIDAtLjU4NS41NzdjMCAuMzI1LjI1My41ODUuNTg1LjU4NXptLTMuMTkyIDQuNjk0YS45MS45MSAwIDEgMC0uMDAxLTEuODIuOTEuOTEgMCAwIDAgMCAxLjgyem0zLjE5Mi0uMzMyaDkuODY1YS41NzYuNTc2IDAgMCAwIC41ODUtLjU3Ny41NzguNTc4IDAgMCAwLS41ODUtLjU4NUg1LjgyNmEuNTc0LjU3NCAwIDAgMC0uNTg1LjU4NWMwIC4zMjQuMjUzLjU3Ny41ODUuNTc3eiIgZmlsbD0iI2ZmZiI+PC9wYXRoPjwvc3ZnPg==');
 }
 
+// lyrics
 tp-yt-paper-tab:nth-child(3).ytmusic-player-page::after {
   background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgd2lkdGg9IjIyIiBoZWlnaHQ9IjIyIiB4PSIzIiB5PSIzIiBmaWxsPSJ3aGl0ZSI+PHBhdGggZD0iTTE4LjUzIDYyLjcyNGMxLjc2NCAwIDMuMTE1LS44MSA1LjI1Ny0yLjcwN2w5LjgxNi04LjYzOGgxNi42MmM4LjcyIDAgMTMuNzc3LTUuMTUyIDEzLjc3Ny0xMy43NzdWMTUuMDUzYzAtOC42MjUtNS4wNTYtMTMuNzc3LTEzLjc3Ny0xMy43NzdIMTMuNzc3QzUuMDU3IDEuMjc2IDAgNi40MiAwIDE1LjA1M3YyMi41NDljMCA4LjYzMyA1LjI3IDEzLjc3NyAxMy40NTYgMTMuNzc3aDEuMDE2djYuNzkzYzAgMi44MTIgMS41MTEgNC41NTIgNC4wNTcgNC41NTJ6bTEuNTctNy4xNnYtOC4xMWMwLTEuODEtLjgwNS0yLjQ4NS0yLjQ4Ni0yLjQ4NWgtMy41NWMtNS4xNjUgMC03LjY1NC0yLjYwMy03LjY1NC03LjY1NFYxNS4zNGMwLTUuMDMzIDIuNDg5LTcuNjMyIDcuNjU0LTcuNjMyaDM1Ljg3MmM1LjE0OSAwIDcuNjU0IDIuNTk5IDcuNjU0IDcuNjMydjIxLjk3NWMwIDUuMDUxLTIuNTA1IDcuNjU0LTcuNjU0IDcuNjU0SDMzLjE4OGMtMS44MzUgMC0yLjcwMi4zMy00LjAxMiAxLjY1em0tMi4yMTItMzIuMTc3YzAgMy4zOTggMi4xNTYgNS45MzYgNS4zODggNS45MzYgMS4zNjEgMCAyLjU5Mi0uMzAyIDMuMzcyLTEuMjYzaC4zODVjLS44NjggMi4yMzEtMyAzLjg0NS01LjMwMyA0LjQtLjk1LjI0My0xLjMyNy43MzctMS4zMjcgMS40MjUgMCAuOC42NTggMS4zNiAxLjUxIDEuMzYgMy4xNzQgMCA4LjgtMy43NzUgOC44LTEwLjYgMC00LjEzOC0yLjYwMi03LjMzNi02LjU4OC03LjMzNi0zLjU3NiAwLTYuMjM3IDIuNTE4LTYuMjM3IDYuMDc4em0xNS42NjMgMGMwIDMuMzk4IDIuMTM0IDUuOTM2IDUuMzg3IDUuOTM2IDEuMzQgMCAyLjU5My0uMzAyIDMuMzczLTEuMjYzaC4zOWMtLjg2NSAyLjIzMS0zLjAyMyAzLjg0NS01LjMwOCA0LjQtLjk0Ny4yNDMtMS4zMjcuNzM3LTEuMzI3IDEuNDI1IDAgLjguNjM2IDEuMzYgMS41MSAxLjM2IDMuMTc4IDAgOC43NzktMy43NzUgOC43NzktMTAuNiAwLTQuMTM4LTIuNTc3LTcuMzM2LTYuNTY3LTcuMzM2LTMuNTc3IDAtNi4yMzcgMi41MTgtNi4yMzcgNi4wNzh6Ij48L3BhdGg+PC9zdmc+');
 }
@@ -1176,7 +1195,17 @@ tp-yt-paper-tab:nth-child(3).ytmusic-player-page[aria-selected="true"]::after {
   background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgd2lkdGg9IjIyIiBoZWlnaHQ9IjIyIiB4PSIzIiB5PSIzIiBmaWxsPSJibGFjayI+PHBhdGggZD0iTTE3LjM0NyA2Mi44MjFjMS4yNTQgMCAyLjIxLS41NzIgMy43MDUtMS45MzNMMzEuNzggNTEuMjZoMTguNDQzQzU4Ljk0MyA1MS4yNiA2NCA0Ni4xMyA2NCAzNy41MDRWMTQuOTU2QzY0IDYuMzMgNTguOTQ0IDEuMTc5IDUwLjIyMyAxLjE3OUgxMy43NzdDNS4wNTcgMS4xNzkgMCA2LjMyMiAwIDE0Ljk1NnYyMi41NDhDMCA0Ni4xMzcgNS4yNyA1MS4yNiAxMy40NTYgNTEuMjZoLjk5NHY4LjMyN2MwIDEuOTcgMS4wOTUgMy4yMzUgMi44OTcgMy4yMzV6bS0uMTA4LTM5LjY0YzAtMy43MSAyLjc5LTYuMzcgNi41My02LjM3IDQuMTggMCA2Ljg5IDMuMzgzIDYuODkgNy42OTQgMCA3LjEwMi01Ljg3MSAxMS4wODYtOS4xOSAxMS4wODYtLjkxNyAwLTEuNTk2LS41OTMtMS41OTYtMS40MyAwLS43NDIuMzg3LTEuMjQyIDEuNDAzLTEuNDc0IDIuNC0uNTg3IDQuNjI5LTIuMzEgNS41My00LjYwNmgtLjQwN2MtLjgyMy45ODMtMi4xMDggMS4zMTgtMy41MTIgMS4zMTgtMy40MTcgMC01LjY0OC0yLjY2OS01LjY0OC02LjIxN3ptMTYuMzg3IDBjMC0zLjcxIDIuNzctNi4zNyA2LjUwOC02LjM3IDQuMTggMCA2LjkxMiAzLjM4MyA2LjkxMiA3LjY5NCAwIDcuMTAyLTUuODcxIDExLjA4Ni05LjE3OSAxMS4wODYtLjkyOCAwLTEuNjE3LS41OTMtMS42MTctMS40MyAwLS43NDIuMzktMS4yNDIgMS4zOTItMS40NzQgMi40MzYtLjU4NyA0LjY1NC0yLjMxIDUuNTUxLTQuNjA2aC0uNDA3Yy0uODIzLjk4My0yLjEwOCAxLjMxOC0zLjUyMyAxLjMxOC0zLjQwNSAwLTUuNjM3LTIuNjY5LTUuNjM3LTYuMjE3eiIgZmlsbD0iI2ZmZiI+PC9wYXRoPjwvc3ZnPg==');
 }
 
+// comments
 tp-yt-paper-tab:nth-child(4).ytmusic-player-page::after {
+  width: 18px;
+  height: 18px;
+  scale: 1.3;
+  // SF SYMBOLS "message.fill"
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABmZVhJZklJKgAIAAAAAQBphwQAAQAAABoAAAAAAAAAAwAAkAcABAAAADAyMzABoAMAAQAAAAEAAAAFoAQAAQAAAEQAAAAAAAAAAgABAAIABAAAAFI5OAACAAcABAAAADAxMDAAAAAAIvvHMbnUA7gAAADwSURBVDhPvdM9SgRBEMXx1Q08gJmBiaCp4McxxFgjAyNvYKaImZ7AO5iIokfYM2y8kabiB/iTgtmxLXrXHREfFPR0vfdnuovu9f5KmFQLWMF6U7GOveybCFrGCQZ4xHtTsY696IVnKmgPIz8rPOH9ghUfB3jJiSkKb2S+gVbxlJ0zKDKRbUFx7t8qsi3oNnc7KLIt6D53O+ihBF3kbgddlqDtjhMbKzJbefzn2TWDTvP4o/o4w2t2V/SMY8zVQOM6zCl84A1DXGGjzNQebjzK6wJwg33sYBOLVUAFdNRc4B12MV/54zokVBiWsJYB/6pPcEC5oa7ytJwAAAAASUVORK5CYII=');
+}
+
+// more like this
+tp-yt-paper-tab:nth-child(5).ytmusic-player-page::after {
   background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTcuOTIgMTAuODNjLjMzNy4yMS43NTguMTMyLjk3OS0uMTguNTE4LS43MDcuODItMS42NTQuODItMi42NSAwLS45OTUtLjMwMi0xLjkzOC0uODItMi42NTNhLjcxOC43MTggMCAwIDAtLjk4LS4xNzNjLS4zNjcuMjMtLjQ1Mi42NzQtLjE0NyAxLjE2NS4zMDEuNDUzLjQ2NyAxLjA0NC40NjcgMS42NjEgMCAuNjE4LS4xNyAxLjIwNi0uNDY3IDEuNjYyLS4zMDIuNDk1LS4yMi45MzQuMTQ3IDEuMTY4em0yLjY3NyAxLjY1OGMuMzUxLjIwNi43OC4xMjYgMS4wMS0uMjI1Ljc5Ni0xLjE4IDEuMjU2LTIuNjkgMS4yNTYtNC4yNjMgMC0xLjU3Mi0uNDU2LTMuMDktMS4yNTUtNC4yNjItLjIzMS0uMzUtLjY2LS40MzItMS4wMTEtLjIyNi0uMzkuMjI4LS40MzUuNjk4LS4xNyAxLjEyMy42MTMuOTQuOTU1IDIuMTI3Ljk1NSAzLjM2NSAwIDEuMjQtLjM1IDIuNDIzLS45NTQgMy4zNjYtLjI2My40MjUtLjIyLjg5NS4xNjkgMS4xMjJ6bTIuNjc3IDEuNjZhLjc0Mi43NDIgMCAwIDAgMS4wMzEtLjI1MkExMC45NjkgMTAuOTY5IDAgMCAwIDE2IDhjMC0yLjItLjY0LTQuMjItMS42OTUtNS44OTVhLjc0Ljc0IDAgMCAwLTEuMDMtLjI1MmMtLjM3OS4yMjctLjQzMi42ODgtLjE4MSAxLjEwNkE5LjQ4NyA5LjQ4NyAwIDAgMSAxNC41MjkgOGMwIDEuODgxLS41NDMgMy42Mi0xLjQzNSA1LjA0Mi0uMjUxLjQxOC0uMTk4Ljg3OS4xOCAxLjEwNnptLTEwLjE0LTNjMS43MTIgMCAzLjE0LTEuNDI3IDMuMTQtMy4xMzkgMC0xLjcxNS0xLjQyLTMuMTMxLTMuMTQtMy4xMzFDMS40MTggNC44NzggMCA2LjI5NSAwIDguMDA5YzAgMS43MiAxLjQxNyAzLjEzOSAzLjEzNSAzLjEzOXptMC0xLjEwN2MtLjI4NiAwLS40NzQtLjE5My0uNDc0LS40NzVWOC40OTJIMS41OTJjLS4yODUgMC0uNDc5LS4xOTItLjQ3OS0uNDggMC0uMjg3LjE4Ny0uNDc4LjQ4LS40NzhIMi42NlY2LjQ3YzAtLjI4Mi4xODgtLjQ4LjQ3NS0uNDguMjkgMCAuNDc5LjE5LjQ3OS40OHYxLjA2M2gxLjA3Yy4yODIgMCAuNDc1LjE5MS40NzUuNDc5IDAgLjI4Ny0uMTkzLjQ3OS0uNDc1LjQ3OWgtMS4wN3YxLjA3NGMwIC4yODItLjE4OC40NzUtLjQ4LjQ3NXoiIGZpbGw9IiNmZmYiPjwvcGF0aD48L3N2Zz4=');
 }
 // data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTcuOTIgMTAuODNjLjMzNy4yMS43NTguMTMyLjk3OS0uMTguNTE4LS43MDcuODItMS42NTQuODItMi42NSAwLS45OTUtLjMwMi0xLjkzOC0uODItMi42NTNhLjcxOC43MTggMCAwIDAtLjk4LS4xNzNjLS4zNjcuMjMtLjQ1Mi42NzQtLjE0NyAxLjE2NS4zMDEuNDUzLjQ2NyAxLjA0NC40NjcgMS42NjEgMCAuNjE4LS4xNyAxLjIwNi0uNDY3IDEuNjYyLS4zMDIuNDk1LS4yMi45MzQuMTQ3IDEuMTY4em0yLjY3NyAxLjY1OGMuMzUxLjIwNi43OC4xMjYgMS4wMS0uMjI1Ljc5Ni0xLjE4IDEuMjU2LTIuNjkgMS4yNTYtNC4yNjMgMC0xLjU3Mi0uNDU2LTMuMDktMS4yNTUtNC4yNjItLjIzMS0uMzUtLjY2LS40MzItMS4wMTEtLjIyNi0uMzkuMjI4LS40MzUuNjk4LS4xNyAxLjEyMy42MTMuOTQuOTU1IDIuMTI3Ljk1NSAzLjM2NSAwIDEuMjQtLjM1IDIuNDIzLS45NTQgMy4zNjYtLjI2My40MjUtLjIyLjg5NS4xNjkgMS4xMjJ6bTIuNjc3IDEuNjZhLjc0Mi43NDIgMCAwIDAgMS4wMzEtLjI1MkExMC45NjkgMTAuOTY5IDAgMCAwIDE2IDhjMC0yLjItLjY0LTQuMjItMS42OTUtNS44OTVhLjc0Ljc0IDAgMCAwLTEuMDMtLjI1MmMtLjM3OS4yMjctLjQzMi42ODgtLjE4MSAxLjEwNkE5LjQ4NyA5LjQ4NyAwIDAgMSAxNC41MjkgOGMwIDEuODgxLS41NDMgMy42Mi0xLjQzNSA1LjA0Mi0uMjUxLjQxOC0uMTk4Ljg3OS4xOCAxLjEwNnptLTEwLjE0LTNjMS43MTIgMCAzLjE0LTEuNDI3IDMuMTQtMy4xMzkgMC0xLjcxNS0xLjQyLTMuMTMxLTMuMTQtMy4xMzFDMS40MTggNC44NzggMCA2LjI5NSAwIDguMDA5YzAgMS43MiAxLjQxNyAzLjEzOSAzLjEzNSAzLjEzOXptMC0xLjEwN2MtLjI4NiAwLS40NzQtLjE5My0uNDc0LS40NzVWOC40OTJIMS41OTJjLS4yODUgMC0uNDc5LS4xOTItLjQ3OS0uNDggMC0uMjg3LjE4Ny0uNDc4LjQ4LS40NzhIMi42NlY2LjQ3YzAtLjI4Mi4xODgtLjQ4LjQ3NS0uNDguMjkgMCAuNDc5LjE5LjQ3OS40OHYxLjA2M2gxLjA3Yy4yODIgMCAuNDc1LjE5MS40NzUuNDc5IDAgLjI4Ny0uMTkzLjQ3OS0uNDc1LjQ3OWgtMS4wN3YxLjA3NGMwIC4yODItLjE4OC40NzUtLjQ4LjQ3NXoiPjwvcGF0aD48L3N2Zz4=
@@ -1187,6 +1216,20 @@ tp-yt-paper-tab:nth-child(4).ytmusic-player-page::after {
 
 ytmusic-player-page tp-yt-paper-tabs .tp-yt-paper-tabs[style-target=content] {
   text-transform: none;
+}
+
+// BLYRICS DOCK
+.blyrics-dock__inner {
+  padding: 2px;
+  box-shadow: none;
+  backdrop-filter: blur(4px);
+  border-radius: 8px;
+}
+
+.blyrics-dock[data-position=bottom-right],
+.blyrics-dock[data-position=bottom-center],
+.blyrics-dock[data-position=bottom-left] {
+  top: calc(100% - 90px);
 }
 
 /* icons */
