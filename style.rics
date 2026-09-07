@@ -44,7 +44,7 @@
 
 /*
 blyrics-target-scroll-pos-ratio = 0.45;
-blyrics-letter-wave = true;
+blyrics-letter-wave = false;
 blyrics-long-word-threshold = 1500;
 */
 
@@ -1142,8 +1142,8 @@ tp-yt-paper-tabs.ytmusic-player-page {
   background: rgba(255, 255, 255, 0.15);
   border-radius: 8px;
   height: 30px;
-  position: absolute;
-  right: 0rem;
+  position: fixed !important;
+  right: 5.65rem;
   bottom: 2rem;
   z-index: 999;
   backdrop-filter: blur(4px);
